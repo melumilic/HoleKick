@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBeha : MonoBehaviour
+public class Destroyable : MonoBehaviour
 {
+    public GameObject deathfx;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,12 +16,10 @@ public class EnemyBeha : MonoBehaviour
     {
         
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void killObject()
     {
-        if(collision.tag == "Player")
-        {
-            GameManager.instance.pave();
-            Destroy(this.gameObject);
-        }
+        Instantiate(deathfx, transform.position, Quaternion.identity);
+        SoundManager.instance.playSound(4);
+        Destroy(this.gameObject);
     }
 }

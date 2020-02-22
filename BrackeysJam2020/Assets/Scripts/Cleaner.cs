@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBeha : MonoBehaviour
+public class Cleaner : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -15,12 +15,11 @@ public class EnemyBeha : MonoBehaviour
     {
         
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if (collision.tag == "Enemy" || collision.tag == "Hole")
         {
-            GameManager.instance.pave();
-            Destroy(this.gameObject);
+            Destroy(collision.gameObject);
         }
     }
 }

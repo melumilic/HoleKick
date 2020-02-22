@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3193607538101497284}
   - component: {fileID: 6496937199919685309}
   - component: {fileID: 6176217839962195441}
+  - component: {fileID: 6306943166852948298}
   m_Layer: 8
   m_Name: Pothole
   m_TagString: Hole
@@ -130,3 +131,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6306943166852948298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3193607538101497285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1171cafddf4aa26489ce2af78d869263, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

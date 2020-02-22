@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    public static SpawnManager instance;
     [SerializeField]
     private bool stop = false;
     [SerializeField]
@@ -12,10 +13,25 @@ public class SpawnManager : MonoBehaviour
     private GameObject _potHolePrefab;
     [SerializeField]
     private GameObject _enemyPrefab;
+    private GameObject _delete;
+    private List<GameObject> remover = new List<GameObject>();
     // Start is called before the first frame update
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(this);
+        }
+        //DontDestroyOnLoad(this);
+    }
     void Start()
     {
         StartCoroutine(SpawnRoutine());
+        _delete = GameObject.Find("Cleaner");
     }
 
     // Update is called once per frame
@@ -35,10 +51,12 @@ public class SpawnManager : MonoBehaviour
                 {
                     spawnTwo = Random.Range(0, 5);
                 }
-                Instantiate(_enemyPrefab, _spawnPoints[spawnOne].position, Quaternion.identity);
+                var temp = Instantiate(_enemyPrefab, _spawnPoints[spawnOne].position, Quaternion.identity);
+                remover.Add(temp);
                 yield return new WaitForSeconds(.5f);
-                Instantiate(_potHolePrefab, _spawnPoints[spawnTwo].position, Quaternion.identity);
-                yield return new WaitForSeconds(Random.Range(1, 4));
+                var temp1 = Instantiate(_potHolePrefab, _spawnPoints[spawnTwo].position, Quaternion.identity);
+                remover.Add(temp1);
+                yield return new WaitForSeconds(Random.Range(1, 3));
             }
             else
             {
@@ -49,6 +67,13 @@ public class SpawnManager : MonoBehaviour
     }
     public void EndSpawning()
     {
+        foreach (var item in remover)
+        {
+            if (item != null)
+            {
+                Destroy(item.gameObject);
+            }
+        }
         stop = true;
     }
 }

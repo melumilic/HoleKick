@@ -24,6 +24,7 @@ public class Pull : MonoBehaviour
         Pullable pullable = collision.GetComponent<Pullable>();
         if ( pullable != null)
         {
+            collision.GetComponent<Rigidbody2D>().gravityScale = 0;
             pullable.pullApply(transform.position, _pullForceInitial, true);
         }
     }
@@ -33,6 +34,14 @@ public class Pull : MonoBehaviour
         if (pullable != null)
         {
             pullable.pullApply(transform.position, _pullForce, false);
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Pullable pullable = collision.GetComponent<Pullable>();
+        if (pullable != null)
+        {
+            collision.GetComponent<Rigidbody2D>().gravityScale = 1;
         }
     }
 }

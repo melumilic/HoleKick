@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
+    private float _jumpPower = 5f;
+    [SerializeField]
     private float _speed = 10f;
     [SerializeField]
     private Rigidbody2D rb;
@@ -36,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     {
         PlayerMove();
         PlayerDash();
+        PlayerJump();
     }
     void PlayerMove()
     {
@@ -47,13 +50,20 @@ public class PlayerMovement : MonoBehaviour
     }
     void PlayerDash()
     {
-        if (Input.GetKeyDown(KeyCode.Space)&&Time.time-_prevTime>_dashCooldown)
+        if (Input.GetKeyDown(KeyCode.LeftShift)&&Time.time-_prevTime>_dashCooldown)
         {
             _prevTime = Time.time;
             if (dir.magnitude > 0)
             {
                 rb.AddForce(dir * _dashDistance,ForceMode2D.Impulse);
             }
+        }
+    }
+    void PlayerJump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        { 
+                rb.AddForce(Vector2.up*_jumpPower, ForceMode2D.Impulse);
         }
     }
 }
